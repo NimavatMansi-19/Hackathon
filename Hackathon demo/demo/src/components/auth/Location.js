@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import './Location.css'; // <-- Make sure this file exists in the same folder
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const CITY_COORDS = {
   Rajkot: [22.28, 70.77, 22.33, 70.83],
@@ -93,15 +95,30 @@ const Location = () => {
   }, [selectedCity]);
 
   return (
-    <div style={{ padding: 20, fontFamily: 'Arial, sans-serif' }}>
-      <h2>🏥 Clinics in {selectedCity}</h2>
+    <div className="location-container">
+      <h2 className="location-title">🏥 Clinics in {selectedCity}</h2>
+      <button
+        style={{
+          padding: '8px 16px',
+          fontSize: '16px',
+          backgroundColor: '#007BFF',
+          color: '#fff',
+          border: 'none',
+          borderRadius: '6px',
+          cursor: 'pointer',
+          marginBottom: '16px'
+        }}
+       onClick={()=>Navigate("/chatbot")}
+      >
+        Back
+      </button><br/>
 
       <label htmlFor="city">Select City: </label>
       <select
         id="city"
+        className="city-select"
         value={selectedCity}
         onChange={(e) => setSelectedCity(e.target.value)}
-        style={{ marginLeft: '10px', padding: '5px' }}
       >
         {Object.keys(CITY_COORDS).map((city) => (
           <option key={city} value={city}>{city}</option>
@@ -109,23 +126,18 @@ const Location = () => {
       </select>
 
       {loading && <p>Loading clinics...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="error">{error}</p>}
 
-      <ul style={{ listStyle: 'none', padding: 0 }}>
+      <ul className="clinic-list">
         {clinics.map((clinic) => (
-          <li key={clinic.id} style={{
-            border: '1px solid #ddd',
-            margin: '10px 0',
-            padding: '10px',
-            borderRadius: '8px',
-          }}>
+          <li key={clinic.id} className="clinic-card">
             <strong>{clinic.name}</strong><br />
-            📍 {clinic.address}<br />
-            📞 {clinic.phone ? (
+            <span className="clinic-address">📍 {clinic.address}</span><br />
+            <span className="clinic-phone">📞 {clinic.phone ? (
               <a href={`tel:${clinic.phone}`}>Call</a>
             ) : (
               <span style={{ color: 'gray' }}>No phone available</span>
-            )}<br />
+            )}</span><br />
             🗺️ <a
               href={`https://www.google.com/maps?q=${clinic.lat},${clinic.lon}`}
               target="_blank"

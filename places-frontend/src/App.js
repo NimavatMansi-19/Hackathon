@@ -7,22 +7,27 @@ const CITY_COORDS = {
   Jamnagar: [22.44, 70.02, 22.48, 70.10],
   Ahmedabad: [23.01, 72.50, 23.09, 72.65],
   Gandhinagar: [23.20, 72.60, 23.28, 72.72],
+  Surat: [21.15, 72.75, 21.25, 72.90],
+  Vadodara: [22.28, 73.15, 22.33, 73.25],
+  Bhavnagar: [21.75, 72.10, 21.80, 72.20],
+  Junagadh: [21.51, 70.44, 21.55, 70.50],
+  Mehsana: [23.59, 72.37, 23.63, 72.43],
 };
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 const App = () => {
   const [selectedCity, setSelectedCity] = useState('Rajkot');
-  const [places, setPlaces] = useState([]);
+  const [clinics, setClinics] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchPlaces = async (city) => {
+  const fetchClinics = async (city) => {
     const [sLat, sLon, nLat, nLon] = CITY_COORDS[city];
     const query = `
       [out:json];
       (
-        node["amenity"~"hospital|clinic|pharmacy"](${sLat},${sLon},${nLat},${nLon});
+        node["amenity"="clinic"](${sLat},${sLon},${nLat},${nLon});
       );
       out body;
     `;
@@ -30,72 +35,70 @@ const App = () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.post(
+      setClinics([]);
+
+      const res = await axios.post(
         'https://overpass-api.de/api/interpreter',
         `data=${encodeURIComponent(query)}`,
         {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         }
       );
 
-      const elements = response.data.elements;
+      const elements = res.data.elements;
+      const enriched = [];
 
-      // Reverse geocode each one (with delay)
-      const enrichedPlaces = [];
-      for (const place of elements.slice(0, 10)) { // limit to 10 for demo
-        const address = await getAddressFromCoords(place.lat, place.lon);
-        enrichedPlaces.push({
-          id: place.id,
-          name: place.tags?.name || 'Unnamed Place',
-          amenity: place.tags?.amenity,
-          lat: place.lat,
-          lon: place.lon,
-          address: address,
+      for (let clinic of elements.slice(0, 10)) {
+        const address = await getAddress(clinic.lat, clinic.lon);
+        enriched.push({
+          id: clinic.id,
+          name: clinic.tags?.name || 'Unnamed Clinic',
+          lat: clinic.lat,
+          lon: clinic.lon,
+          address,
+          phone: clinic.tags?.phone || null,
         });
-        await delay(1000); // 1 second delay
+        await delay(1000);
       }
 
-      setPlaces(enrichedPlaces);
+      setClinics(enriched);
     } catch (err) {
       console.error(err);
-      setError('Failed to fetch data. Please try again.');
+      setError("Couldn't load clinics. Try again.");
     } finally {
       setLoading(false);
     }
   };
 
-  const getAddressFromCoords = async (lat, lon) => {
+  const getAddress = async (lat, lon) => {
     try {
-      const res = await axios.get(`https://nominatim.openstreetmap.org/reverse`, {
+      const res = await axios.get('https://nominatim.openstreetmap.org/reverse', {
         params: {
           format: 'json',
-          lat: lat,
-          lon: lon,
+          lat,
+          lon,
         },
         headers: {
           'Accept-Language': 'en',
         },
       });
-
-      return res.data.display_name || 'Address not found';
+      return res.data.display_name || 'Unknown Address';
     } catch {
-      return 'Address not found';
+      return 'Unknown Address';
     }
   };
 
   useEffect(() => {
-    fetchPlaces(selectedCity);
+    fetchClinics(selectedCity);
   }, [selectedCity]);
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial' }}>
-      <h2>🩺 Hospitals, Clinics & Pharmacies in {selectedCity}</h2>
+    <div style={{ padding: 20, fontFamily: 'Arial, sans-serif' }}>
+      <h2>🏥 Clinics in {selectedCity}</h2>
 
-      <label htmlFor="city-select">Select City: </label>
+      <label htmlFor="city">Select City: </label>
       <select
-        id="city-select"
+        id="city"
         value={selectedCity}
         onChange={(e) => setSelectedCity(e.target.value)}
         style={{ marginLeft: '10px', padding: '5px' }}
@@ -105,15 +108,31 @@ const App = () => {
         ))}
       </select>
 
-      {loading && <p>Loading data (may take a few seconds)...</p>}
+      {loading && <p>Loading clinics...</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      <ul>
-        {places.map((place) => (
-          <li key={place.id} style={{ marginBottom: '15px' }}>
-            <strong>{place.name}</strong><br />
-            🏥 Type: {place.amenity}<br />
-            📍 Address: {place.address}
+      <ul style={{ listStyle: 'none', padding: 0 }}>
+        {clinics.map((clinic) => (
+          <li key={clinic.id} style={{
+            border: '1px solid #ddd',
+            margin: '10px 0',
+            padding: '10px',
+            borderRadius: '8px',
+          }}>
+            <strong>{clinic.name}</strong><br />
+            📍 {clinic.address}<br />
+            📞 {clinic.phone ? (
+              <a href={`tel:${clinic.phone}`}>Call</a>
+            ) : (
+              <span style={{ color: 'gray' }}>No phone available</span>
+            )}<br />
+            🗺️ <a
+              href={`https://www.google.com/maps?q=${clinic.lat},${clinic.lon}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Open in Google Maps
+            </a>
           </li>
         ))}
       </ul>
@@ -122,4 +141,3 @@ const App = () => {
 };
 
 export default App;
-

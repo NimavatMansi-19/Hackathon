@@ -36,6 +36,7 @@ const Location = () => {
       setLoading(true);
       setError(null);
       setClinics([]);
+      
 
       const res = await axios.post(
         'https://overpass-api.de/api/interpreter',

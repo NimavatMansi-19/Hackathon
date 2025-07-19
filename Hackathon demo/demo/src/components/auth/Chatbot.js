@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import './Chatbot.css'; 
+import { useNavigate } from 'react-router-dom'; // <-- Add this
+import './Chatbot.css';
 
 export default function Chatbot() {
   const [userInput, setUserInput] = useState('');
   const [reply, setReply] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate(); // <-- Add this
 
   const handleSubmit = async () => {
     if (!userInput.trim()) return;
@@ -41,6 +44,14 @@ export default function Chatbot() {
         disabled={loading}
       >
         {loading ? 'Checking...' : 'Send'}
+      </button>
+
+      <button
+        className="chatbot-button"
+        onClick={() => navigate('/hospitals')}
+        style={{ marginTop: '10px' }}
+      >
+        Nearby Hospitals
       </button>
 
       {reply && (

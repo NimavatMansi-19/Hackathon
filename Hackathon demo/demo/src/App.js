@@ -4,6 +4,7 @@ import Dashboard from "./components/auth/login/dashboard";
 import {Routes,Route } from "react-router-dom";
 import "./index.css";
 import Chatbot from "./components/auth/Chatbot";
+import Location from "./components/auth/Location";
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/chatbot" element={<Chatbot />} /> 
+        <Route path="/hospitals" element={<Location/>}/>
       </Routes>
 
     </>

@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./login.css";
 import { doSignInWithEmailAndPassword, doSignInWithGoogle } from "../../../firebase/auth"; 
 import { useNavigate } from "react-router-dom";
-
-
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -57,7 +55,7 @@ const Login = () => {
     setIsSigningIn(true);
     try {
       await doSignInWithEmailAndPassword(email, password);
-      navigate("/dashboard"); // Change as per your route
+      navigate("/chatbot"); // Change as per your route
     } catch (err) {
       setErrorMessage(err.message);
     } finally {
@@ -68,7 +66,7 @@ const Login = () => {
   const handleGoogleSignIn = async () => {
     try {
       await doSignInWithGoogle();
-      navigate("/dashboard"); // Change as needed
+      navigate("/chatbot"); // Change as needed
     } catch (err) {
       setErrorMessage(err.message);
     }

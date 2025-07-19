@@ -1,0 +1,74 @@
+.chatbot-container {
+  width: 500px;
+  margin: 60px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-family: Arial, sans-serif;
+  position: relative; 
+  z-index: 10;        
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.chatbot-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #2c3e50;
+}
+
+.chatbot-textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  resize: vertical;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+
+  /* 🛠️ Fix for interaction */
+  position: relative;
+  z-index: 11;
+}
+
+.chatbot-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 11;
+  position: relative;
+}
+
+.chatbot-button:hover {
+  background-color: #0056b3;
+}
+
+.chatbot-button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+.chatbot-reply {
+  margin-top: 20px;
+  background-color: #e9fce9;
+  border: 1px solid #b2dfb2;
+  padding: 10px;
+  border-radius: 5px;
+  position: relative;
+  z-index: 11;
+}
+
+/* ✅ ADD THIS BELOW: Prevent background from blocking clicks */
+.bg-animation,
+.floating-shape,
+.medical-icon {
+  pointer-events: none !important;
+  z-index: 1;
+}

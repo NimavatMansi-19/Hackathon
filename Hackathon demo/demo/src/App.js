@@ -3,6 +3,7 @@ import Login from "./components/auth/login/";
 import Dashboard from "./components/auth/login/dashboard";
 import {Routes,Route } from "react-router-dom";
 import "./index.css";
+import Chatbot from "./components/auth/Chatbot";
 
 const App = () => {
   return (
@@ -22,7 +23,7 @@ const App = () => {
        
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} /> {/* ✅ Route added */}
+        <Route path="/chatbot" element={<Chatbot />} /> 
       </Routes>
 
     </>

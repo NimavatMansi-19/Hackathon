@@ -39,7 +39,6 @@ app.post('/api/ask', async (req, res) => {
     res.status(500).json({ reply: "Together.ai failed: " + error.message });
   }
 });
-
 app.listen(5000, () => {
   console.log("Together.ai backend running at http://localhost:5000");
 });

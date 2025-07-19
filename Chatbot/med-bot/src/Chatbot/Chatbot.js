@@ -13,7 +13,6 @@ export default function Chatbot() {
     const data = await res.json();
     setReply(data.reply);
   };
-
   return (
     <div className="p-4">
       <h2 className="text-xl font-bold">Symptom Checker Chatbot</h2>

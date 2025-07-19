@@ -1,0 +1,45 @@
+/* index.css */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.bg-animation {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.floating-shape,
+.medical-icon {
+  position: absolute;
+  opacity: 0.1;
+  animation: float 8s ease-in-out infinite;
+}
+
+.shape1 { top: 10%; left: 10%; width: 120px; height: 120px; background: linear-gradient(45deg, #ff6b6b, #ee5a24); border-radius: 30px; animation-delay: 0s; }
+.shape2 { top: 60%; right: 15%; width: 80px; height: 80px; background: linear-gradient(45deg, #4834d4, #686de0); border-radius: 50%; animation-delay: 2s; }
+.shape3 { bottom: 20%; left: 20%; width: 100px; height: 100px; background: linear-gradient(45deg, #00d2d3, #54a0ff); border-radius: 25px; animation-delay: 4s; }
+.shape4 { top: 30%; right: 30%; width: 60px; height: 60px; background: linear-gradient(45deg, #5f27cd, #341f97); border-radius: 50%; animation-delay: 6s; }
+
+.medical1 { top: 15%; left: 80%; font-size: 3rem; animation-delay: 1s; }
+.medical2 { bottom: 70%; left: 5%; font-size: 2.5rem; animation-delay: 3s; }
+.medical3 { top: 70%; right: 5%; font-size: 2rem; animation-delay: 5s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+  25% { transform: translateY(-30px) rotate(90deg) scale(1.1); }
+  50% { transform: translateY(-15px) rotate(180deg) scale(0.9); }
+  75% { transform: translateY(-25px) rotate(270deg) scale(1.05); }
+}

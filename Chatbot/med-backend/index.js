@@ -31,7 +31,7 @@ app.post('/api/ask', async (req, res) => {
       }
     );
 
-    const reply = response.data.choices[0].message.content.trim(); // ✅ Corrected
+    const reply = response.data.choices[0].message.content.trim(); 
     res.json({ reply });
 
   } catch (error) {
@@ -41,5 +41,5 @@ app.post('/api/ask', async (req, res) => {
 });
 
 app.listen(5000, () => {
-  console.log("✅ Together.ai backend running at http://localhost:5000");
+  console.log("Together.ai backend running at http://localhost:5000");
 });

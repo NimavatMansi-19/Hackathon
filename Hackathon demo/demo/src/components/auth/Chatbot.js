@@ -1,65 +1,92 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // <-- Add this
-import './Chatbot.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // ✅ Add this
+import axios from "axios";
+import "./Chatbot.css";
 
-export default function Chatbot() {
-  const [userInput, setUserInput] = useState('');
-  const [reply, setReply] = useState('');
-  const [loading, setLoading] = useState(false);
+const Chatbot = () => {
+  const [message, setMessage] = useState("");
+  const [language, setLanguage] = useState("English");
+  const [darkMode, setDarkMode] = useState(false);
+  const [chatHistory, setChatHistory] = useState([]);
 
-  const navigate = useNavigate(); // <-- Add this
+  const navigate = useNavigate(); // ✅ Initialize the hook
 
-  const handleSubmit = async () => {
-    if (!userInput.trim()) return;
-    setLoading(true);
+  const sendMessage = async () => {
+    if (!message.trim()) return;
+
+    const userMessage = message;
+    setMessage("");
+
     try {
-      const res = await fetch('http://localhost:5000/api/ask', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userInput }),
+      setChatHistory((prev) => [...prev, { role: "user", content: userMessage }]);
+
+      const res = await axios.post("http://localhost:5000/api/ask", {
+        message: userMessage,
+        language,
       });
-      const data = await res.json();
-      setReply(data.reply);
-    } catch (err) {
-      setReply('Error: Failed to fetch response.');
+
+      const botReply = res.data.reply;
+
+      setChatHistory((prev) => [...prev, { role: "bot", content: botReply }]);
+    } catch (error) {
+      const errorMsg = "Error: " + error.message;
+      setChatHistory((prev) => [...prev, { role: "bot", content: errorMsg }]);
     }
-    setLoading(false);
+  };
+
+  const goToHospitals = () => {
+    navigate("/hospitals"); // ✅ Route to Location component
   };
 
   return (
-    <div className="chatbot-container">
-      <h2 className="chatbot-title">🩺 Symptom Checker Chatbot</h2>
+    <div className={`chatbot-container ${darkMode ? "dark" : "light"}`}>
+      <div className="toggle-theme">
+        <label className="switch">
+          <input type="checkbox" onChange={() => setDarkMode(!darkMode)} />
+          <span className="slider round"></span>
+        </label>
+        <span>{darkMode ? "Dark" : "Light"} Mode</span>
+      </div>
+
+      <h2 className="title">💬 Medicare AI Chatbot</h2>
+
+      <div className="chat-history">
+        {chatHistory.map((msg, index) => (
+          <div
+            key={index}
+            className={`chat-message ${msg.role === "user" ? "user" : "bot"}`}
+          >
+            <strong>{msg.role === "user" ? "You" : "Bot"}:</strong> {msg.content}
+          </div>
+        ))}
+      </div>
 
       <textarea
-        className="chatbot-textarea"
-        rows={5}
-        placeholder="Describe your symptoms..."
-        value={userInput}
-        onChange={(e) => setUserInput(e.target.value)}
+        className="input-box"
+        placeholder="Enter your symptoms..."
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
       />
 
-      <button
-        className="chatbot-button"
-        onClick={handleSubmit}
-        disabled={loading}
+      <select
+        className="language-dropdown"
+        value={language}
+        onChange={(e) => setLanguage(e.target.value)}
       >
-        {loading ? 'Checking...' : 'Send'}
+        <option value="English">English</option>
+        <option value="Hindi">Hindi</option>
+      </select>
+
+      <button className="send-button" onClick={sendMessage}>
+        Send
       </button>
 
-      <button
-        className="chatbot-button"
-        onClick={() => navigate('/hospitals')}
-        style={{ marginTop: '10px' }}
-      >
-        Nearby Hospitals
+      {/* ✅ New Button for Nearby Hospitals */}
+      <button className="send-button" style={{ backgroundColor: "#2196f3" }} onClick={goToHospitals}>
+        🏥 Nearby Hospitals
       </button>
-
-      {reply && (
-        <div className="chatbot-reply">
-          <strong>AI Response:</strong>
-          <p>{reply}</p>
-        </div>
-      )}
     </div>
   );
-}
+};
+
+export default Chatbot;

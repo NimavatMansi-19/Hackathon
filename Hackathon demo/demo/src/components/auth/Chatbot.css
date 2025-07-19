@@ -1,74 +1,164 @@
+/* Ensure HTML and Body fill the viewport */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden; /* Prevents scrollbars from appearing */
+}
+
 .chatbot-container {
-  width: 500px;
-  margin: 60px auto;
-  padding: 20px;
-  background-color: #fff;
+    /* Full-screen dimensions */
+    width: 1600px;
+    height: 100vh;
+    
+    /* Other styles from your snippet */
+    position: relative;
+    z-index: 10;
+    /* max-width: 100%; /* Keeps it responsive */
+    margin: auto;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
+    margin-top: 0px;
+    
+    /* Recommended additions for a proper full-screen layout */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Note: The max-width will keep it from stretching across very wide screens,
+which is good for readability. If you want it to truly stretch end-to-end
+on all screens, remove the `max-width` property.
+*/
+.chat-history {
+  max-height: 800px;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-radius: 10px;
+}
+
+.chat-message {
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+.chat-message.user {
+  text-align: right;
+  color: #007bff;
+}
+
+.chat-message.bot {
+  text-align: left;
+  color: #4caf50;
+}
+
+
+.chatbot-container.light {
+  background-color: #ffffff;
+  color: #000;
+}
+
+.chatbot-container.dark {
+  background-color: #1e1e2f;
+  color: #fff;
+}
+
+.title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.input-box {
+  width: 100%;
+  height: 100px;
+  padding: 1rem;
+  font-size: 1rem;
   border-radius: 10px;
   border: 1px solid #ccc;
-  font-family: Arial, sans-serif;
-  position: relative; 
-  z-index: 10;        
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
 }
 
-.chatbot-title {
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 15px;
-  color: #2c3e50;
-}
-
-.chatbot-textarea {
+.language-dropdown {
+  padding: 0.5rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
   width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  resize: vertical;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  margin-bottom: 10px;
-
-  /* 🛠️ Fix for interaction */
-  position: relative;
-  z-index: 11;
 }
 
-.chatbot-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
+.send-button {
+  background-color: #4caf50;
   color: white;
-  font-weight: bold;
   border: none;
-  border-radius: 5px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 10px;
   cursor: pointer;
-  z-index: 11;
+  width: 40%;
+  margin-bottom: 1rem;
+  margin-left: 500px;
+}
+
+.reply-box {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.toggle-theme {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  margin-bottom: 1rem;
+}
+
+.switch {
   position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  margin-right: 10px;
 }
 
-.chatbot-button:hover {
-  background-color: #0056b3;
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
-.chatbot-button:disabled {
-  background-color: #999;
-  cursor: not-allowed;
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.3s;
+  border-radius: 34px;
 }
 
-.chatbot-reply {
-  margin-top: 20px;
-  background-color: #e9fce9;
-  border: 1px solid #b2dfb2;
-  padding: 10px;
-  border-radius: 5px;
-  position: relative;
-  z-index: 11;
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
 }
 
-/* ✅ ADD THIS BELOW: Prevent background from blocking clicks */
-.bg-animation,
-.floating-shape,
-.medical-icon {
-  pointer-events: none !important;
-  z-index: 1;
+input:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:checked + .slider:before {
+  transform: translateX(20px);
 }

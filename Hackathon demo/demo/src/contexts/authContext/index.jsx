@@ -37,5 +37,4 @@ export function AuthProvider({children}){
         <AuthContext.Provider value={value}> {!loading && children}</AuthContext.Provider>
     )
 }
-
 export default AuthProvider; 

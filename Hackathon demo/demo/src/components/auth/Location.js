@@ -95,10 +95,13 @@ const Location = () => {
     fetchClinics(selectedCity);
   }, [selectedCity]);
 
+
+  const navigate = useNavigate();
   return (
     <div className="location-container">
       <h2 className="location-title">🏥 Clinics in {selectedCity}</h2>
-      <button
+      
+      <button 
         style={{
           padding: '8px 16px',
           fontSize: '16px',
@@ -109,10 +112,18 @@ const Location = () => {
           cursor: 'pointer',
           marginBottom: '16px'
         }}
-       onClick={()=>Navigate("/chatbot")}
-      >
-        Back
-      </button><br/>
+      onClick={() => navigate("/chatbot")}>Back</button>
+      <br/>
+      
+      <button
+      className="signout-button"
+      onClick={() => {
+        localStorage.clear();
+        navigate('/');
+      }}
+    >
+      Sign Out
+    </button>
 
       <label htmlFor="city">Select City: </label>
       <select
@@ -125,6 +136,7 @@ const Location = () => {
           <option key={city} value={city}>{city}</option>
         ))}
       </select>
+
 
       {loading && <p>Loading clinics...</p>}
       {error && <p className="error">{error}</p>}

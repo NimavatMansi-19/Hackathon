@@ -1,0 +1,103 @@
+.location-container {
+  padding: 24px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  background-color: #f7f9fc;
+  overflow-y: auto;  
+}
+
+.location-title {
+  font-size: 28px;
+  margin-bottom: 16px;
+  color: #000000;
+  text-align: center;
+}
+
+.city-select {
+  padding: 8px 12px;
+  font-size: 16px;
+  margin-left: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+}
+
+.city-select:hover {
+  border-color: #0066cc;
+}
+
+.clinic-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.clinic-card {
+  border: 2px solid #f0f0f0;
+  border-left: 5px solid #0099ff;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  background: #ffffff;
+}
+
+.clinic-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 153, 255, 0.15);
+}
+
+.clinic-card strong {
+  color: #333;
+  font-size: 18px;
+}
+
+.clinic-address {
+  display: block;
+  margin: 4px 0;
+  color: #555;
+}
+
+.clinic-phone {
+  display: block;
+  margin: 4px 0;
+  color: #333;
+}
+
+.clinic-card a {
+  color: #0077cc;
+  text-decoration: none;
+}
+
+.clinic-card a:hover {
+  text-decoration: underline;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+.signout-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #ff4d4f;
+  color: #fff;
+  padding: 10px 18px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 1000;
+}
+
+.signout-button:hover {
+  background-color: #e04345;
+}
+
+ 

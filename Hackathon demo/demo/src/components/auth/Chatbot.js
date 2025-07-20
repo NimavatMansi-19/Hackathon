@@ -76,6 +76,16 @@ const Chatbot = () => {
         <option value="English">English</option>
         <option value="Hindi">Hindi</option>
       </select>
+      
+           <button
+      className="signout-button"
+      onClick={() => {
+        localStorage.clear();
+        navigate('/');
+      }}
+    >
+      Sign Out
+    </button>
 
       <button className="send-button" onClick={sendMessage}>
         Send

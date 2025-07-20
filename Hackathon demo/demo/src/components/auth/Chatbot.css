@@ -1,45 +1,42 @@
 /* Ensure HTML and Body fill the viewport */
 html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-    overflow: hidden; /* Prevents scrollbars from appearing */
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* prevents double scroll */
 }
+
 
 .chatbot-container {
-    /* Full-screen dimensions */
-    width: 1600px;
-    height: 100vh;
-    
-    /* Other styles from your snippet */
-    position: relative;
-    z-index: 10;
-    /* max-width: 100%; /* Keeps it responsive */
-    margin: auto;
-    padding: 2rem;
-    border-radius: 20px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s;
-    margin-top: 0px;
-    
-    /* Recommended additions for a proper full-screen layout */
-    display: flex;
-    flex-direction: column;
+  padding: 24px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  background-color: #f7f9fc; /* Same background as .location-container */
+  overflow-y: auto;  /* Enables scrolling */
+  display: flex;
+  flex-direction: column;
 }
 
-/* Note: The max-width will keep it from stretching across very wide screens,
-which is good for readability. If you want it to truly stretch end-to-end
-on all screens, remove the `max-width` property.
-*/
+.chatbot-container.light {
+  background-color: #f7f9fc; /* Match location background */
+  color: #000;
+
+}
+
 .chat-history {
-  max-height: 800px;
+  flex: 1;
   overflow-y: auto;
-  margin-bottom: 1rem;
   padding: 1rem;
   background-color: rgba(0, 0, 0, 0.03);
   border-radius: 10px;
+  margin: 0 0 1rem 0; /* Only space below */
 }
+
+
 
 .chat-message {
   margin-bottom: 0.75rem;
@@ -92,17 +89,31 @@ on all screens, remove the `max-width` property.
 }
 
 .send-button {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  padding: 0.8rem 1.5rem;
+  width: 100%;
+  padding: 0.75rem;
   font-size: 1rem;
   border-radius: 10px;
+  border: none;
+  background-color: #4caf50;
+  color: white;
   cursor: pointer;
-  width: 40%;
-  margin-bottom: 1rem;
+  margin-top: auto;
+}
+.send-button {
+  width: 25%;
+  padding: 1 rem;
+  font-size: 1rem;
+  margin: 10px;
+  border-radius: 10px;
+  border: none;
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+  margin-top: 0;
   margin-left: 500px;
 }
+
+
 
 .reply-box {
   background-color: rgba(0, 0, 0, 0.05);
@@ -129,6 +140,30 @@ on all screens, remove the `max-width` property.
   opacity: 0;
   width: 0;
   height: 0;
+}
+.chatbot-button:disabled {
+  background-color: #a1b6d6;
+  cursor: not-allowed;
+}
+
+.chatbot-reply {
+  margin-top: 20px;
+  background-color: #e3f9e3;
+  border: 1px solid #b0e2b0;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #2d4f2d;
+  z-index: 11;
+  position: relative;
+}
+
+.bg-animation,
+.floating-shape,
+.medical-icon {
+  pointer-events: none !important;
+  z-index: 1;
 }
 
 .slider {
@@ -162,3 +197,62 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(20px);
 }
+
+
+@media (max-width: 768px) {
+  .chatbot-container {
+    padding: 1rem;
+  }
+
+
+.input-box {
+  margin-top: 0;
+  margin-bottom: 0; /* already done */
+}
+
+.language-dropdown {
+  margin-bottom: 0.5rem; /* reduce if too much */
+}
+
+.send-button {
+  margin-top: 0.5rem; /* adjust or set to 0 if needed */
+}
+
+.input-area {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* you control space between input and button here */
+  margin-top: 0;  /* remove unwanted top spacing */
+}
+
+
+  .title {
+    font-size: 1.2rem;
+  }
+
+  .chatbot-reply {
+    font-size: 14px;
+  }
+}
+
+.signout-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #ff4d4f;
+  color: #fff;
+  padding: 10px 18px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 1000;
+  margin-right: 150px;
+}
+
+.signout-button:hover {
+  background-color: #e04345;
+}
+
+ 

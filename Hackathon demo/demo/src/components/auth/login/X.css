@@ -1,0 +1,44 @@
+/* Full-screen center alignment */
+.forgot-password-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full height */
+  background-color: #f5f5f5;
+}
+
+/* Card container */
+.forgot-password-container {
+  width: 320px;
+  padding: 24px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.forgot-password-container h2 {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.forgot-password-container input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  z-index: 1; /* Ensure it's clickable */
+  position: relative; /* Prevent accidental overlap */
+}
+
+.forgot-password-container button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}

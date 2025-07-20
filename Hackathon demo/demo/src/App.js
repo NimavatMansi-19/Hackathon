@@ -5,6 +5,7 @@ import {Routes,Route } from "react-router-dom";
 import "./index.css";
 import Chatbot from "./components/auth/Chatbot";
 import Location from "./components/auth/Location";
+import ForgotPassword from "./components/auth/login/ForgotPassword";
 
 const App = () => {
   return (
@@ -26,6 +27,11 @@ const App = () => {
         <Route path="/" element={<Login />} />
         <Route path="/chatbot" element={<Chatbot />} /> 
         <Route path="/hospitals" element={<Location/>}/>
+       
+
+<Route path="/forgot-password" element={<ForgotPassword />} />
+
+
       </Routes>
 
     </>

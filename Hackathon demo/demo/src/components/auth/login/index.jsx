@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./login.css";
-import { doSignInWithEmailAndPassword, doSignInWithGoogle, doCreateUserWithEmailAndPassword, doSendEmailVerification } from "../../../firebase/auth"; 
+import { doSignInWithEmailAndPassword, doSignInWithGoogle, doCreateUserWithEmailAndPassword, doSendEmailVerification, } from "../../../firebase/auth"; 
 import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -89,7 +89,8 @@ const Login = () => {
     setIsSigningIn(false);
   }
   }
-
+const handleReset = () => {
+}
   return (
   <div className="auth-container">
      <div className="logo-section">
@@ -139,14 +140,24 @@ const Login = () => {
         </div>
 
         <div className="form-options">
-          <div className="remember-me">
+          {/* <div className="remember-me">
             <div className="custom-checkbox">
               <input type="checkbox" id="remember" />
               <div className="checkmark"></div>
             </div>
             <label htmlFor="remember">Remember me</label>
-          </div>
-          <a href="#" className="forgot-password">Forgot password?</a>
+          </div> */}
+ <div className="forgot-container">
+        <button
+          type="button"
+          className="forgot-password"
+          onClick={() => navigate("/forgot-password")}
+        >
+          Forgot password?
+        </button>
+      </div>
+
+
         </div>
 
         {errorMessage && <div className="error-message">{errorMessage}</div>}

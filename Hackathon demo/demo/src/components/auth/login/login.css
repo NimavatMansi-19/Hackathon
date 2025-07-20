@@ -198,6 +198,7 @@
 
         .input-container {
             position: relative;
+            width: 100%;
         }
 
         .form-input {
@@ -628,4 +629,22 @@
 
 .register-form .auth-footer a:hover {
   text-decoration: underline;
+}
+.forgot-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+.forgot-password {
+  background: none;
+  border: none;
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer; /* 🔥 This enables the pointer */
+  font-size: 14px;
+  padding: 0;
+  width: auto;
+  text-align: right;
 }
